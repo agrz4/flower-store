@@ -17,7 +17,7 @@ function HeroSection() {
         </p>
         <div className="max-w-5xl mx-auto">
           <img 
-            src="https://images.unsplash.com/photo-1471899236350-e3016bf1e69e?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+            src="https://plus.unsplash.com/premium_photo-1718360706543-f753344840ee?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
             alt="Toko Bunga" 
             className="w-full rounded-2xl shadow-2xl"
           />
@@ -327,14 +327,14 @@ function App() {
           setShowForm(true);
           setInvoice(null);
           setShowNotif(false);
-          // Scroll ke form hanya jika tidak di posisi atas
-          setTimeout(() => {
-            const formElement = document.querySelector('.min-h-screen.bg-gradient-to-br');
-            if (formElement && window.scrollY > 100) {
-              formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          }, 150);
         }
+        // Selalu scroll ke form
+        setTimeout(() => {
+          const formElement = document.querySelector('.min-h-screen.bg-gradient-to-br');
+          if (formElement) {
+            formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 150);
         break;
       case 'about':
         setShowForm(false);
