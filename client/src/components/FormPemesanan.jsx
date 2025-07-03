@@ -23,6 +23,7 @@ export default function FormPemesanan({ onSubmit }) {
     ukuran: 'kecil',
     jumlah: 1,
     alamat: '',
+    metodePembayaran: 'transfer',
   });
   const [total, setTotal] = useState(0);
   const [diskon, setDiskon] = useState(0);
@@ -245,6 +246,24 @@ export default function FormPemesanan({ onSubmit }) {
                   className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all duration-300 bg-white/50 backdrop-blur-sm min-h-[120px] resize-none"
                   placeholder="Masukkan alamat lengkap pengiriman..."
                 />
+              </div>
+
+              {/* Payment Method */}
+              <div className="space-y-3">
+                <label className="block text-sm font-semibold text-gray-700">
+                  Metode Pembayaran *
+                </label>
+                <select
+                  name="metodePembayaran"
+                  value={form.metodePembayaran}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all duration-300 bg-white/50 backdrop-blur-sm"
+                >
+                  <option value="transfer">Transfer Bank</option>
+                  <option value="qris">QRIS</option>
+                  <option value="cod">Bayar di Tempat (COD)</option>
+                </select>
               </div>
             </form>
           </div>
