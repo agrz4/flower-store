@@ -57,7 +57,8 @@ function Navbar({ onNavigate, activeSection }) {
               { id: 'home', label: 'Beranda' },
               { id: 'order', label: 'Pesan' },
               { id: 'about', label: 'Tentang Kami' },
-              { id: 'contact', label: 'Kontak' }
+              { id: 'contact', label: 'Kontak' },
+              { id: 'admin', label: 'Admin' }
             ].map((item) => (
               <a 
                 key={item.id}
@@ -112,7 +113,8 @@ function Navbar({ onNavigate, activeSection }) {
                 { id: 'home', label: 'Beranda', icon: '🏠' },
                 { id: 'order', label: 'Pesan', icon: '📋' },
                 { id: 'about', label: 'Tentang Kami', icon: '👥' },
-                { id: 'contact', label: 'Kontak', icon: '📞' }
+                { id: 'contact', label: 'Kontak', icon: '📞' },
+                { id: 'admin', label: 'Admin', icon: '⚙️' }
               ].map((item, index) => (
                 <a 
                   key={item.id}

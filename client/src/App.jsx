@@ -4,6 +4,7 @@ import FormPemesanan from './components/FormPemesanan'
 import InvoicePreview from './components/InvoicePreview'
 import NotifikasiSukses from './components/NotifikasiSukses'
 import HotlineButton from './components/HotlineButton'
+import AdminOrders from './components/AdminOrders'
 
 function HeroSection() {
   return (
@@ -239,6 +240,7 @@ function App() {
   const [invoice, setInvoice] = useState(null);
   const [showNotif, setShowNotif] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [showAdmin, setShowAdmin] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
   // Effect untuk mendeteksi scroll dan mengupdate active section
@@ -320,6 +322,7 @@ function App() {
       case 'home':
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setShowForm(false);
+        setShowAdmin(false);
         break;
       case 'order':
         // Jika form belum ditampilkan, tampilkan form
@@ -327,6 +330,7 @@ function App() {
           setShowForm(true);
           setInvoice(null);
           setShowNotif(false);
+          setShowAdmin(false);
         }
         // Selalu scroll ke form
         setTimeout(() => {
@@ -338,6 +342,7 @@ function App() {
         break;
       case 'about':
         setShowForm(false);
+        setShowAdmin(false);
         // Scroll ke section tentang kami menggunakan ID
         setTimeout(() => {
           const aboutSection = document.getElementById('about');
@@ -348,6 +353,7 @@ function App() {
         break;
       case 'contact':
         setShowForm(false);
+        setShowAdmin(false);
         // Scroll ke footer menggunakan ID
         setTimeout(() => {
           const footer = document.getElementById('contact');
@@ -355,6 +361,13 @@ function App() {
             footer.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         }, 100);
+        break;
+      case 'admin':
+        setShowForm(false);
+        setShowAdmin(true);
+        setInvoice(null);
+        setShowNotif(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         break;
       default:
         break;
@@ -364,16 +377,22 @@ function App() {
   return (
     <div className="landing-root">
       <Navbar onNavigate={handleNavigate} activeSection={activeSection} />
-      <HeroSection />
-      <ProdukSection />
-      <TentangKamiSection />
-      <DiskonInfoSection />
-      <CTASection onClick={handleShowForm} />
-      {showForm && <FormPemesanan onSubmit={handlePemesanan} />}
-      <InvoicePreview data={invoice} onClose={handleCloseInvoice} />
-      <NotifikasiSukses show={showNotif} onClose={handleCloseNotif} />
-      <HotlineButton />
-      <Footer />
+      {showAdmin ? (
+        <AdminOrders />
+      ) : (
+        <>
+          <HeroSection />
+          <ProdukSection />
+          <TentangKamiSection />
+          <DiskonInfoSection />
+          <CTASection onClick={handleShowForm} />
+          {showForm && <FormPemesanan onSubmit={handlePemesanan} />}
+          <InvoicePreview data={invoice} onClose={handleCloseInvoice} />
+          <NotifikasiSukses show={showNotif} onClose={handleCloseNotif} />
+          <HotlineButton />
+          <Footer />
+        </>
+      )}
     </div>
   );
 }

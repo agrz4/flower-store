@@ -243,6 +243,27 @@ app.get('/api/orders', async (req, res) => {
     }
 });
 
+// Endpoint untuk update status pesanan
+app.patch('/api/orders/:id/status', async (req, res) => {
+    const orderId = req.params.id;
+    const { status } = req.body;
+    if (!status) {
+        return res.status(400).json({ error: 'Status baru harus diberikan.' });
+    }
+    try {
+        const [result] = await db.promise().query(
+            'UPDATE orders SET status = ? WHERE id_order = ?',
+            [status, orderId]
+        );
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: 'Pesanan tidak ditemukan.' });
+        }
+        res.json({ message: 'Status pesanan berhasil diupdate.' });
+    } catch (err) {
+        console.error('Gagal update status pesanan:', err);
+        res.status(500).json({ error: 'Gagal update status pesanan', detail: err.message });
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Server berjalan di http://localhost:${PORT}`);
