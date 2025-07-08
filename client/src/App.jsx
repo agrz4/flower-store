@@ -5,6 +5,7 @@ import InvoicePreview from './components/InvoicePreview'
 import NotifikasiSukses from './components/NotifikasiSukses'
 import HotlineButton from './components/HotlineButton'
 import AdminOrders from './components/AdminOrders'
+import { SignIn, useUser, SignOutButton } from '@clerk/clerk-react'
 
 function HeroSection() {
   return (
@@ -242,6 +243,7 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const { isSignedIn } = useUser();
 
   // Effect untuk mendeteksi scroll dan mengupdate active section
   useEffect(() => {
@@ -378,7 +380,18 @@ function App() {
     <div className="landing-root">
       <Navbar onNavigate={handleNavigate} activeSection={activeSection} />
       {showAdmin ? (
-        <AdminOrders />
+        isSignedIn ? (
+          <div>
+            <div className="flex justify-end p-4">
+              <SignOutButton afterSignOutUrl="/" />
+            </div>
+            <AdminOrders />
+          </div>
+        ) : (
+          <div className="flex justify-center items-center min-h-screen">
+            <SignIn routing="hash" />
+          </div>
+        )
       ) : (
         <>
           <HeroSection />
